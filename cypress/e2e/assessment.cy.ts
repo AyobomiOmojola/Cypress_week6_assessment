@@ -38,7 +38,7 @@ describe('Testlio', () => {
     // click fitness equipment in top nav bar
     cy.get('#ui-id-26').click()
     // assert selected category of items visiibility
-    cy.get('div.product-item-info').should('be.visible').should('have.length', 11)
+    cy.get('div.product-item-info').should('be.visible').and('have.length', 11)
     
 
     /////////////// STEP 4 /////////////////////
@@ -61,7 +61,7 @@ describe('Testlio', () => {
     ///// check to see cart counter has increased by 1
     cy.get('.showcart').within(()=>{
       cy.get('.counter', { timeout: 40000 }).should('not.have.css', 'display', 'none')
-      cy.get('.counter-number').should('be.visible').should('have.text','1')
+      cy.get('.counter-number').should('be.visible').and('have.text','1')
     })
     
 
@@ -98,7 +98,7 @@ describe('Testlio', () => {
 
 
     /////////////// STEP 7 /////////////////////
-    ///////// Fill it all the mandatory details and navigate to payments page ///////////
+    ///////// Fill all the mandatory details and navigate to payments page ///////////
 
     // fill in shipping information
     cy.get('#customer-email-fieldset').find('#customer-email').type(data.EmailAddress);
@@ -115,11 +115,11 @@ describe('Testlio', () => {
     cy.get('#checkout-shipping-method-load').find('[value="flatrate_flatrate"]').should('be.checked')
     // navigate to payments page
     cy.get('.button').click()
-
-    //navigate to the payments page
+    // assert shipping address is visible
     cy.get('.billing-address-details', { timeout: 40000 }).should('be.visible')
     // check product summary is visible
     cy.get('.opc-block-summary').should('be.visible')
+    // check product summary is visible
     cy.get('.totals').should('be.visible')
 
 
@@ -130,7 +130,7 @@ describe('Testlio', () => {
     cy.get('.primary[title="Place Order"]').click()
     // check the success note of the order
     cy.get('[data-ui-id="page-title-wrapper"]').should('be.visible')
-    .should('have.text','Thank you for your purchase!')
+    .and('have.text','Thank you for your purchase!')
     // expect there to be an existence of an order number
     cy.get('.columns').find('.checkout-success > p > span').should('not.be.empty')
     // check the visibility of the 'continue shopping button'
