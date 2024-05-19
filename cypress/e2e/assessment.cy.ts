@@ -119,7 +119,7 @@ describe('Testlio', () => {
     cy.get('.billing-address-details', { timeout: 40000 }).should('be.visible')
     // check product summary is visible
     cy.get('.opc-block-summary').should('be.visible')
-    // check product summary is visible
+    // check price total is visible
     cy.get('.totals').should('be.visible')
 
 
