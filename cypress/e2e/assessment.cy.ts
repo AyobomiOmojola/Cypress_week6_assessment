@@ -1,67 +1,83 @@
-describe('Testlio', () => {
+import HomePage from '../pageClasses/homepage.cy';
+import FitnessEquipmentInGear from '../pageClasses/fitnessInGear.cy';
+import Cart from '../pageClasses/cart.cy'
+import Checkout from '../pageClasses/checkout.cy';
+import SuccessPage from '../pageClasses/successPage.cy';
 
-  let data;
+describe('Testlio', () => {
+  let shippingData;
+  let constantData;
   before(function () {
-    cy.fixture('shippingAddress').then(function ($data) {
-      data = $data;
+    cy.fixture('shippingAddress').then(($data) => {
+      shippingData = $data;
+    })
+    cy.fixture('constants').then(($data)=>{
+      constantData = $data
     })
   })
 
   it('eCommerce e2e testing', () => {
+    // import homepageclass
+    const homePage = new HomePage();
+    const fitnessEquipment = new FitnessEquipmentInGear();
+    const cart = new Cart();
+    const checkout = new Checkout();
+    const successpage = new SuccessPage();
+
     /////////////// STEP 1 /////////////////////
     ///////// Navigate to https://magento.softwaretestingboard.com/ url/////////////
 
-    cy.visit('https://magento.softwaretestingboard.com/')
+    cy.visit(Cypress.env('url'))
     // assert on url redirection
-    cy.url().should('contain','softwaretestingboard')
+    cy.url().should('contain', Cypress.env('urlText'))
 
 
     /////////////// STEP 2 /////////////////////
     ////////////// Validate the home page ////////////////////////
 
     // assert banner visibility
-    cy.get('div.blocks-promo').should('be.visible')
+    homePage.getBannerElement().should('be.visible')
     // Check hot sellers visibility
-    cy.get('div.content-heading').should('be.visible')
-    cy.get('div.block-content').should('be.visible')
+    homePage.getHotSellerTitle().should('be.visible')
+    homePage.getHotSellerContents().should('be.visible')
     // Check search button visibility
-    cy.get('#search').should('be.visible')
+    homePage.getSearchBarButton().should('be.visible')
     // Check top navigation Visibility
-    cy.get('#ui-id-2').should('be.visible')
+    homePage.getNavBarElement().should('be.visible')
 
 
     /////////////// STEP 3 /////////////////////
     ///////// Navigate to Gear and select Fitness equipment on top navigation ///////////
 
     // hover on gear in top navbar
-    cy.get('#ui-id-6').trigger('mouseover')
+    homePage.getGearInNavbar().trigger('mouseover')
     // click fitness equipment in top nav bar
-    cy.get('#ui-id-26').click()
+    homePage.getFitnessEquipmentInGear().click()
     // assert selected category of items visiibility
-    cy.get('div.product-item-info').should('be.visible').and('have.length', 11)
+    fitnessEquipment.getAllFitnessEqiupments().should('be.visible').and('have.length', constantData.allFitnessEquipment)
     
 
     /////////////// STEP 4 /////////////////////
     /////////////// Select any random item and click on add to cart //////////////
 
     // Hover over the third item
-    cy.get('li.product-item').eq(2).trigger('mouseover')
-    cy.get('li.product-item').eq(2).within(()=>{
+    fitnessEquipment.getSingleFitnessEquipments().eq(2).trigger('mouseover')
+    fitnessEquipment.getSingleFitnessEquipments().eq(2).within(()=>{
       // Click on add to cart
-      cy.get('button.tocart[type="submit"]').click({force: true})
+      fitnessEquipment.getAddToCartButtonInItem().click({force: true})
       // capture name of product
-      cy.get('.product-item-link').then(($name)=>{
+      fitnessEquipment.getNameOfFitnessItem().then(($name)=>{
         console.log($name.text())
       })
       // capture price of product
-      cy.get('#product-price-23').then(($price)=>{
+      fitnessEquipment.getPriceOfThirdFitnessItem().then(($price)=>{
         console.log($price.text())
       })
     })
     ///// check to see cart counter has increased by 1
-    cy.get('.showcart').within(()=>{
-      cy.get('.counter', { timeout: 40000 }).should('not.have.css', 'display', 'none')
-      cy.get('.counter-number').should('be.visible').and('have.text','1')
+    cart.getCartIcon().within(()=>{
+      cart.getCartItemCounter().should('not.have.css', 'display', 'none')
+      cart.getCartItemCounter().should('be.visible').and('have.text',constantData.cartCounterNumber)
     })
     
 
@@ -69,22 +85,22 @@ describe('Testlio', () => {
     ///////////// Click on mini cart icon /////////////////
 
     // click on cart icon
-    cy.get('.showcart').click()
+    cart.getCartIcon().click()
     // Check to see within cart for further assertions
-    cy.get('#ui-id-1').should('not.have.css', 'display', 'none')
-    cy.get('#ui-id-1').within(()=>{
+    cart.getCartContentBlock().should('not.have.css', 'display', 'none')
+    cart.getCartContentBlock().within(()=>{
       // check total price is visible
-      cy.get('#minicart-content-wrapper').find('.subtotal').should('be.visible')
+      cart.getTotalPriceInCart().should('be.visible')
       // check specific product is visible
-      cy.get('[href$="lumaflex-trade-strength-band-kit.html"]').should('exist')
+      cart.getHarmonyLumaflexItem().should('exist')
       // check edit button is visible
-      cy.get('.edit').should('be.visible')
+      cart.getEditButtonInCart().should('be.visible')
       // check delete button is visible
-      cy.get('.delete').should('be.visible')
+      cart.getDeleteButtonInCart().should('be.visible')
       // check 'checkout' button is visible
-      cy.get('#top-cart-btn-checkout').should('be.visible')
+      cart.getCheckoutBtnInCart().should('be.visible')
       // click on checkout button
-      cy.get('#top-cart-btn-checkout').click()
+      cart.getCheckoutBtnInCart().click()
     })
     
 
@@ -92,48 +108,48 @@ describe('Testlio', () => {
     ////////// Click on Proceed to checkout button ///////////
 
     // check order summary 
-    cy.get('aside.modal-custom[data-role="modal"]', { timeout: 40000 }).should('be.visible')
+    checkout.getOrderSummaryModal().should('be.visible')
     // check order visibility
-    cy.get('aside.modal-custom[data-role="modal"]').find('.product-item-name').should('have.text','Harmony Lumaflex™ Strength Band Kit ')
+    checkout.getItemInOrderSummary().should('have.text', constantData.itemInOrderSummary)
 
 
     /////////////// STEP 7 /////////////////////
     ///////// Fill all the mandatory details and navigate to payments page ///////////
 
     // fill in shipping information
-    cy.get('#customer-email-fieldset').find('#customer-email').type(data.EmailAddress);
-    cy.get('[name="firstname"]').type(data.FirstName);
-    cy.get('[name="lastname"]').type(data.LastName);
-    cy.get('[name="company"]').type(data.Company);
-    cy.get('[name="street[0]"]').type(data.StreetAddress);
-    cy.get('[name="city"]').type(data.City);
-    cy.get('[name="postcode"]').type(data.PostalCode);
-    cy.get('select[name="country_id"]').select('Nigeria')
-    cy.get('[name="region"]').type(data.State)
-    cy.get('[name="telephone"]').type(data.PhoneNumber);
+    checkout.getEmailAddressField().type(shippingData.EmailAddress);
+    checkout.getFirstNameField().type(shippingData.FirstName);
+    checkout.getLastNameField().type(shippingData.LastName);
+    checkout.getCompanyField().type(shippingData.Company);
+    checkout.getStreetAddressField().type(shippingData.StreetAddress);
+    checkout.getCityField().type(shippingData.City);
+    checkout.getPostalCodeField().type(shippingData.PostalCode);
+    checkout.getCountryField().select('Nigeria')
+    checkout.getStateField().type(shippingData.State)
+    checkout.getPhoneNumberField().type(shippingData.PhoneNumber);
     // assert shipping method is checked
-    cy.get('#checkout-shipping-method-load').find('[value="flatrate_flatrate"]').should('be.checked')
+    checkout.getShippingMethodCheckBox().should('be.checked')
     // navigate to payments page
-    cy.get('.button').click()
+    checkout.getNextButton().click()
     // assert shipping address is visible
-    cy.get('.billing-address-details', { timeout: 40000 }).should('be.visible')
+    checkout.getShippingAddress().should('be.visible')
     // check product summary is visible
-    cy.get('.opc-block-summary').should('be.visible')
+    checkout.getOrderSummaryInPaymentPage().should('be.visible')
     // check price total is visible
-    cy.get('.totals').should('be.visible')
+    checkout.getTotalPriceInOrderSummary().should('be.visible')
 
 
     /////////////// STEP 8 /////////////////////
     ///////////// Click on Place order///////////////////
 
     // Click on place order
-    cy.get('.primary[title="Place Order"]').click()
+    checkout.getPlaceOrderButton().click()
     // check the success note of the order
-    cy.get('[data-ui-id="page-title-wrapper"]').should('be.visible')
-    .and('have.text','Thank you for your purchase!')
+    successpage.getSuccessHeaderText().should('be.visible')
+    .and('have.text',constantData.successNote)
     // expect there to be an existence of an order number
-    cy.get('.columns').find('.checkout-success > p > span').should('not.be.empty')
+    successpage.getSuccessOrderNumberContainer().should('not.be.empty')
     // check the visibility of the 'continue shopping button'
-    cy.get('.checkout-success').find('.action').should('be.visible')
+    successpage.getContinueShoppingBtn().should('be.visible')
   })
 })
