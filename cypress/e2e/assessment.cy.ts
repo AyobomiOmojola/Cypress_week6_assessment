@@ -1,8 +1,8 @@
-import HomePage from '../pageClasses/homepage.cy';
-import FitnessEquipmentInGear from '../pageClasses/fitnessInGear.cy';
-import Cart from '../pageClasses/cart.cy'
-import Checkout from '../pageClasses/checkout.cy';
-import SuccessPage from '../pageClasses/successPage.cy';
+import HomePage from './pageClasses/homepage.cy';
+import FitnessEquipmentInGear from './pageClasses/fitnessInGear.cy';
+import Cart from './pageClasses/cart.cy'
+import Checkout from './pageClasses/checkout.cy';
+import SuccessPage from './pageClasses/successPage.cy';
 
 describe('Testlio', () => {
   let shippingData;
