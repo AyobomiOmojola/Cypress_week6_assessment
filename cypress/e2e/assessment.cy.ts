@@ -124,7 +124,7 @@ describe('Testlio', () => {
     checkout.getStreetAddressField().type(shippingData.StreetAddress);
     checkout.getCityField().type(shippingData.City);
     checkout.getPostalCodeField().type(shippingData.PostalCode);
-    checkout.getCountryField().select('Nigeria')
+    checkout.getCountryField().select(constantData.country)
     checkout.getStateField().type(shippingData.State)
     checkout.getPhoneNumberField().type(shippingData.PhoneNumber);
     // assert shipping method is checked
