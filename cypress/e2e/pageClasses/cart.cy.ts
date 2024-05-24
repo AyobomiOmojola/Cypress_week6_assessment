@@ -1,39 +1,39 @@
 class Cart {
-    cart_icon_selector = '.showcart';
-    cart_counter_wrapper_selector = '.counter';
-    cart_item_counter_selector = '.counter-number';
-    cart_content_block_selector = '#ui-id-1';
-    total_price_in_cart_selector = '#minicart-content-wrapper .subtotal';
-    harmony_lumaflex_item_selector = '[href$="lumaflex-trade-strength-band-kit.html"]';
-    edit_button_in_cart_selector = '.edit';
-    delete_button_in_cart_selector = '.delete';
-    checkout_btn_in_cart_selector = '#top-cart-btn-checkout';
+    cart_icon_selector:string = '.showcart';
+    cart_counter_wrapper_selector:string = '.counter';
+    cart_item_counter_selector:string = '.counter-number';
+    cart_content_block_selector:string = '#ui-id-1';
+    total_price_in_cart_selector:string = '#minicart-content-wrapper .subtotal';
+    harmony_lumaflex_item_selector:string = '[href$="lumaflex-trade-strength-band-kit.html"]';
+    edit_button_in_cart_selector:string = '.edit';
+    delete_button_in_cart_selector:string = '.delete';
+    checkout_btn_in_cart_selector:string = '#top-cart-btn-checkout';
 
-    getCartIcon() {
+    getCartIcon():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.cart_icon_selector);
     }
-    getCartCounterWrapper() {
+    getCartCounterWrapper():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.cart_counter_wrapper_selector, { timeout: 40000 });
     }
-    getCartItemCounter() {
+    getCartItemCounter():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.cart_item_counter_selector);
     }
-    getCartContentBlock() {
+    getCartContentBlock():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.cart_content_block_selector);
     }
-    getTotalPriceInCart() {
+    getTotalPriceInCart():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.total_price_in_cart_selector);
     }
-    getHarmonyLumaflexItem() {
+    getHarmonyLumaflexItem():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.harmony_lumaflex_item_selector);
     }
-    getEditButtonInCart() {
+    getEditButtonInCart():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.edit_button_in_cart_selector);
     }
-    getDeleteButtonInCart() {
+    getDeleteButtonInCart():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.delete_button_in_cart_selector);
     }
-    getCheckoutBtnInCart() {
+    getCheckoutBtnInCart():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.checkout_btn_in_cart_selector);
     }
 }

@@ -4,9 +4,30 @@ import Cart from './pageClasses/cart.cy'
 import Checkout from './pageClasses/checkout.cy';
 import SuccessPage from './pageClasses/successPage.cy';
 
+interface ShippingData {
+  EmailAddress: string;
+  FirstName: string;
+  LastName: string;
+  Company: string;
+  StreetAddress: string;
+  City: string;
+  PostalCode: string;
+  State: string;
+  PhoneNumber: string;
+}
+
+interface ConstantData {
+  allFitnessEquipment: number;
+  cartCounterNumber: string;
+  itemInOrderSummary: string;
+  country: string;
+  successNote: string;
+}
+
+
 describe('Testlio', () => {
-  let shippingData;
-  let constantData;
+  let shippingData: ShippingData;
+  let constantData: ConstantData;
   before(function () {
     cy.fixture('shippingAddress').then(($data) => {
       shippingData = $data;
