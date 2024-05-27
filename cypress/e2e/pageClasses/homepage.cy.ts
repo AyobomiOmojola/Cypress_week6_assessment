@@ -8,26 +8,26 @@ class HomePage {
     fitness_equipment_selector:string = '#ui-id-26';
 
     getBannerElement():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.banner_selector);
+        return cy.get(this.banner_selector).should('be.visible')
     }
     getHotSellerTitle():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.hot_seller_title_selector);
+        return cy.get(this.hot_seller_title_selector).should('be.visible')
     }
     getHotSellerContents():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.hot_seller_content_selector);
+        return cy.get(this.hot_seller_content_selector).should('be.visible')
     }
     getSearchBarButton():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.search_bar_button_selector);
+        return cy.get(this.search_bar_button_selector).should('be.visible')
     }
     getNavBarElement():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.navbar_selector);
+        return cy.get(this.navbar_selector).should('be.visible')
     }
     getGearInNavbar():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.gear_selection_selector);
+        return cy.get(this.gear_selection_selector).trigger('mouseover')
     }
     getFitnessEquipmentInGear():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.fitness_equipment_selector);
+        return cy.get(this.fitness_equipment_selector).click()
     }
 }
 
-export default HomePage;
+export {HomePage};

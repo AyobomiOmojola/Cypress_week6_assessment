@@ -20,7 +20,7 @@ class Checkout {
 
     // Shipping section 
     getOrderSummaryModal():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.order_summary_modal_selector, { timeout: 40000 });
+        return cy.get(this.order_summary_modal_selector, { timeout: 40000 }).should('be.visible')
     }
     getItemInOrderSummary():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.item_in_order_summary_selector);
@@ -56,25 +56,25 @@ class Checkout {
         return cy.get(this.phonenumber_field_selector);
     }
     getShippingMethodCheckBox():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.shipping_method_checkbox_selector);
+        return cy.get(this.shipping_method_checkbox_selector).should('be.checked')
     }
     getNextButton():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.next_button_selector);
+        return cy.get(this.next_button_selector).click()
     }
 
     // Payment section
     getShippingAddress():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.shipping_address_selector, { timeout: 40000 });
+        return cy.get(this.shipping_address_selector, { timeout: 40000 }).should('be.visible')
     }
     getOrderSummaryInPaymentPage():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.order_summary_in_payment_page_selector);
+        return cy.get(this.order_summary_in_payment_page_selector).should('be.visible')
     }
     getTotalPriceInOrderSummary():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.totalprice_in_order_summary_selector);
+        return cy.get(this.totalprice_in_order_summary_selector).should('be.visible')
     }
     getPlaceOrderButton():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.place_order_button_selector);
+        return cy.get(this.place_order_button_selector).click()
     }
 }
 
-export default Checkout;
+export {Checkout}

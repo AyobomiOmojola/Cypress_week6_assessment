@@ -5,14 +5,14 @@ class SuccessPage {
     continue_shopping_btn_selector:string = '.checkout-success .action';
 
     getSuccessHeaderText():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.success_header_text_selector);
+        return cy.get(this.success_header_text_selector).should('be.visible')
     }
     getSuccessOrderNumberContainer():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.success_order_number_container_selector);
+        return cy.get(this.success_order_number_container_selector).should('not.be.empty')
     }
     getContinueShoppingBtn():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.continue_shopping_btn_selector);
+        return cy.get(this.continue_shopping_btn_selector).should('be.visible')
     }
 }
 
-export default SuccessPage;
+export {SuccessPage}

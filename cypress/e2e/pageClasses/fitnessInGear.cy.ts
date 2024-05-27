@@ -6,13 +6,13 @@ class FitnessEquipmentInGear {
     price_of_harmony_lumaflex_item:string = '#product-price-23'
 
     getAllFitnessEqiupments():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.all_fitness_equipment)
+        return cy.get(this.all_fitness_equipment).should('be.visible')
 }
     getSingleFitnessEquipments():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.single_fitness_equipment)
+        return cy.get(this.single_fitness_equipment).eq(2)
     }
     getAddToCartButtonInItem():Cypress.Chainable<JQuery<HTMLElement>> {
-        return cy.get(this.addToCartButton_inSIngleItem)
+        return cy.get(this.addToCartButton_inSIngleItem).click({force: true})
     }
     getNameOfFitnessItem():Cypress.Chainable<JQuery<HTMLElement>> {
         return cy.get(this.name_of_fitness_item)
@@ -21,4 +21,4 @@ class FitnessEquipmentInGear {
         return cy.get(this.price_of_harmony_lumaflex_item)
     }
 }
-export default FitnessEquipmentInGear
+export {FitnessEquipmentInGear}
