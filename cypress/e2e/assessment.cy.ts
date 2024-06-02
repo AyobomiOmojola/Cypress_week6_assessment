@@ -3,7 +3,7 @@ import { FitnessEquipmentInGear } from './pageClasses/fitnessInGear.cy';
 import { Cart } from './pageClasses/cart.cy'
 import { Checkout } from './pageClasses/checkout.cy';
 import { SuccessPage } from './pageClasses/successPage.cy';
-import { fitnessEquipmentData, OrderSummary, successPage } from '../fixtures/constants'
+import { URL, fitnessEquipmentData, OrderSummary, successPage } from '../fixtures/constants'
 
 interface ShippingData {
   EmailAddress: string;
@@ -47,9 +47,9 @@ describe('Testlio', () => {
     /////////////// STEP 1 /////////////////////
     ///////// Navigate to https://magento.softwaretestingboard.com/ url/////////////
 
-    cy.visit(Cypress.env('url'))
+    cy.visit(URL.url)
     // assert on url redirection
-    cy.url().should('contain', Cypress.env('urlText'))
+    cy.url().should('contain', URL.urlText)
 
 
     /////////////// STEP 2 /////////////////////
@@ -86,13 +86,9 @@ describe('Testlio', () => {
       // Click on add to cart
       fitnessEquipment.getAddToCartButtonInItem()
       // capture name of product
-      fitnessEquipment.getNameOfFitnessItem().then(($name)=>{
-        console.log($name.text())
-      })
+      fitnessEquipment.getNameOfFitnessItem()
       // capture price of product
-      fitnessEquipment.getPriceOfThirdFitnessItem().then(($price)=>{
-        console.log($price.text())
-      })
+      fitnessEquipment.getPriceOfThirdFitnessItem()
     })
     ///// check to see cart counter has increased by 1
     cart.getCartIcon().within(()=>{

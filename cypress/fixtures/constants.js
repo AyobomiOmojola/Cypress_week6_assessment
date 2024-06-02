@@ -1,3 +1,8 @@
+export const URL = {
+    "url": "https://magento.softwaretestingboard.com/",
+    "urlText":"softwaretestingboard"
+}
+
 export const fitnessEquipmentData = {
     "allFitnessEquipment" : 11,
     "cartCounterNumber" : "1",
