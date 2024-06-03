@@ -1,0 +1,100 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-06-02T19:28:37.194Z",
+    "end": "2024-06-02T19:30:16.262Z",
+    "duration": 99068,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "20fcbf4a-180b-4dd0-b0a6-6ce5800028f8",
+      "title": "",
+      "fullFile": "cypress\\e2e\\assessment.cy.ts",
+      "file": "cypress\\e2e\\assessment.cy.ts",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "93135834-74f3-4c78-8cc3-ae569fe7398f",
+          "title": "Testlio",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "eCommerce e2e testing",
+              "fullTitle": "Testlio eCommerce e2e testing",
+              "timedOut": null,
+              "duration": 91095,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// import homepageclass\nvar homePage = new homepage_cy_1.HomePage();\nvar fitnessEquipment = new fitnessInGear_cy_1.FitnessEquipmentInGear();\nvar cart = new cart_cy_1.Cart();\nvar checkout = new checkout_cy_1.Checkout();\nvar successpage = new successPage_cy_1.SuccessPage();\n/////////////// STEP 1 /////////////////////\n///////// Navigate to https://magento.softwaretestingboard.com/ url/////////////\ncy.visit(constants_1.URL.url);\n// assert on url redirection\ncy.url().should('contain', constants_1.URL.urlText);\n/////////////// STEP 2 /////////////////////\n////////////// Validate the home page ////////////////////////\n// assert banner visibility\nhomePage.getBannerElement();\n// Check hot sellers visibility\nhomePage.getHotSellerTitle();\nhomePage.getHotSellerContents();\n// Check search button visibility\nhomePage.getSearchBarButton();\n// Check top navigation Visibility\nhomePage.getNavBarElement();\n/////////////// STEP 3 /////////////////////\n///////// Navigate to Gear and select Fitness equipment on top navigation ///////////\n// hover on gear in top navbar\nhomePage.getGearInNavbar();\n// click fitness equipment in top nav bar\nhomePage.getFitnessEquipmentInGear();\n// assert selected category of items visiibility\nfitnessEquipment.getAllFitnessEqiupments().and('have.length', constants_1.fitnessEquipmentData.allFitnessEquipment);\n/////////////// STEP 4 /////////////////////\n/////////////// Select any random item and click on add to cart //////////////\n// Hover over the third item\nfitnessEquipment.getSingleFitnessEquipments().trigger('mouseover');\nfitnessEquipment.getSingleFitnessEquipments().within(function () {\n    // Click on add to cart\n    fitnessEquipment.getAddToCartButtonInItem();\n    // capture name of product\n    fitnessEquipment.getNameOfFitnessItem();\n    // capture price of product\n    fitnessEquipment.getPriceOfThirdFitnessItem();\n});\n///// check to see cart counter has increased by 1\ncart.getCartIcon().within(function () {\n    cart.getCartItemCounter().and('have.text', constants_1.fitnessEquipmentData.cartCounterNumber);\n});\n/////////////// STEP 5 /////////////////////\n///////////// Click on mini cart icon /////////////////\n// click on cart icon\ncart.getCartIcon().click();\n// Check to see within cart for further assertions\ncart.getCartContentBlock().within(function () {\n    // check total price is visible\n    cart.getTotalPriceInCart();\n    // check specific product is visible\n    cart.getHarmonyLumaflexItem();\n    // check edit button is visible\n    cart.getEditButtonInCart();\n    // check delete button is visible\n    cart.getDeleteButtonInCart();\n    // check 'checkout' button is visible and click on it\n    cart.getCheckoutBtnInCart();\n});\n/////////////// STEP 6 /////////////////////\n////////// Click on Proceed to checkout button ///////////\n// check order summary \ncheckout.getOrderSummaryModal();\n// check order visibility\ncheckout.getItemInOrderSummary().should('have.text', constants_1.OrderSummary.itemInOrderSummary);\n/////////////// STEP 7 /////////////////////\n///////// Fill all the mandatory details and navigate to payments page ///////////\n// fill in shipping information\ncheckout.getEmailAddressField().type(shippingData.EmailAddress);\ncheckout.getFirstNameField().type(shippingData.FirstName);\ncheckout.getLastNameField().type(shippingData.LastName);\ncheckout.getCompanyField().type(shippingData.Company);\ncheckout.getStreetAddressField().type(shippingData.StreetAddress);\ncheckout.getCityField().type(shippingData.City);\ncheckout.getPostalCodeField().type(shippingData.PostalCode);\ncheckout.getCountryField().select(shippingData.Country);\ncheckout.getStateField().type(shippingData.State);\ncheckout.getPhoneNumberField().type(shippingData.PhoneNumber);\n// assert shipping method is checked\ncheckout.getShippingMethodCheckBox();\n// navigate to payments page\ncheckout.getNextButton();\n// assert shipping address is visible\ncheckout.getShippingAddress();\n// check product summary is visible\ncheckout.getOrderSummaryInPaymentPage();\n// check price total is visible\ncheckout.getTotalPriceInOrderSummary();\n/////////////// STEP 8 /////////////////////\n///////////// Click on Place order///////////////////\n// Click on place order\ncheckout.getPlaceOrderButton();\n// check the success note of the order\nsuccesspage.getSuccessHeaderText()\n    .and('have.text', constants_1.successPage.successNote);\n// expect there to be an existence of an order number\nsuccesspage.getSuccessOrderNumberContainer();\n// check the visibility of the 'continue shopping button'\nsuccesspage.getContinueShoppingBtn();",
+              "err": {},
+              "uuid": "02f04731-d66a-4756-9251-3ff799f5217b",
+              "parentUUID": "93135834-74f3-4c78-8cc3-ae569fe7398f",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "02f04731-d66a-4756-9251-3ff799f5217b"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 91095,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
